@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.recipeapp.favourites.FavouritesFragment
-import com.example.recipeapp.recipeList.FoodCategoryFragment
+import com.example.recipeapp.categoryList.FoodCategoryFragment
 
 class HomePagerAdapter(private val context: Context, fm: FragmentManager, private val totalTabs: Int):
         FragmentPagerAdapter(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {

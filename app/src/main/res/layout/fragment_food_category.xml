@@ -6,13 +6,13 @@
     <data>
         <variable
             name="recipeListViewModel"
-            type="com.example.recipeapp.recipeList.FoodCategoryViewModel" />
+            type="com.example.recipeapp.categoryList.FoodCategoryViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".recipeList.FoodCategoryFragment">
+        tools:context=".categoryList.FoodCategoryFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_grid"
