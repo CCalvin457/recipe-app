@@ -8,19 +8,32 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.recipeapp.databinding.FragmentFoodCategoryBinding
 
+/**
+ * This fragment is used to show the different food categories
+ */
 class FoodCategoryFragment : Fragment() {
+    /**
+     * Lazy initialize FoodCategoryViewModel
+     */
     val viewModel: FoodCategoryViewModel by lazy {
         ViewModelProvider(this).get(FoodCategoryViewModel::class.java)
     }
 
+    /**
+     * Inflates layout with Data Binding, set lifecycleOwner to the FoodCategoryFragment
+     * allowing Data Binding to observe LiveData, and sets up the recyclerview
+     * (categoryGrid) with an adapter
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val binding = FragmentFoodCategoryBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
+        // Giving the binding access to the FoodCategoryViewModel
         binding.recipeListViewModel = viewModel
 
+        // Setting up recyclerview with an adapter
         binding.categoryGrid.adapter = FoodCategoryAdapter(FoodCategoryAdapter.OnClickListener {
 
         })

@@ -16,6 +16,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val imgUrl = imgUrl.toUri().buildUpon().scheme("https").build()
 
+        // Glide is used to load the image from a url into an ImageView
         Glide.with(imgView.context).load(imgUrl)
             .apply(RequestOptions()
                 .placeholder(R.drawable.loading_animation)

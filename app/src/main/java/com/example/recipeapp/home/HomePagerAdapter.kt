@@ -13,6 +13,7 @@ class HomePagerAdapter(private val context: Context, fm: FragmentManager, privat
         return totalTabs
     }
 
+    // Calls the respective fragment depending on which tab is selected
     override fun getItem(position: Int): Fragment {
         return when(position) {
             0 -> FoodCategoryFragment()
