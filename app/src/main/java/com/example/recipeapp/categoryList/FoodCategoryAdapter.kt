@@ -22,6 +22,17 @@ class FoodCategoryAdapter(private val onClickListener: OnClickListener):
      */
     class FoodCategoryViewHolder(private var binding: GridFoodCategoryItemBinding):
         RecyclerView.ViewHolder(binding.root) {
+        companion object {
+            fun from(parent: ViewGroup): FoodCategoryViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = GridFoodCategoryItemBinding
+                    .inflate(layoutInflater, parent, false)
+
+                return FoodCategoryViewHolder(binding)
+            }
+
+        }
+
         fun bind(foodCategory: FoodCategory) {
             binding.category = foodCategory
             binding.executePendingBindings()
@@ -47,7 +58,7 @@ class FoodCategoryAdapter(private val onClickListener: OnClickListener):
      * Creates a new RecyclerView item views
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodCategoryViewHolder {
-        return FoodCategoryViewHolder(GridFoodCategoryItemBinding.inflate(LayoutInflater.from(parent.context)))
+        return FoodCategoryViewHolder.from(parent)
     }
 
     /**

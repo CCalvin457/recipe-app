@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.recipeapp.categoryList.FoodCategoryAdapter
-import com.example.recipeapp.categoryList.MealApiStatus
 import com.example.recipeapp.network.FoodCategory
+import com.example.recipeapp.network.Recipe
+import com.example.recipeapp.recipes.RecipesAdapter
+import com.example.recipeapp.utils.MealApiStatus
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -22,14 +24,6 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.ic_broken_image))
             .into(imgView)
-    }
-}
-
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<FoodCategory>?) {
-    data?.let {
-        val adapter = recyclerView.adapter as FoodCategoryAdapter
-        adapter.submitList(data)
     }
 }
 
@@ -47,5 +41,22 @@ fun bindStatus(statusImageView: ImageView, status: MealApiStatus?) {
         MealApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
+    }
+}
+
+@BindingAdapter("foodCategoryData")
+fun bindFoodCateooryView(recyclerView: RecyclerView, data: List<FoodCategory>?) {
+    data?.let {
+        val adapter = recyclerView.adapter as FoodCategoryAdapter
+        adapter.submitList(data)
+    }
+}
+
+
+@BindingAdapter("recipesListData")
+fun bindRecipesListView(recyclerView: RecyclerView, data: List<Recipe>?) {
+    data?.let {
+        val adapter = recyclerView.adapter as RecipesAdapter
+        adapter.submitList(data)
     }
 }

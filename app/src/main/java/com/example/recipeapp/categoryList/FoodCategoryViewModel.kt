@@ -1,20 +1,16 @@
 package com.example.recipeapp.categoryList
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.network.FoodCategory
 import com.example.recipeapp.network.MealDBApi
+import com.example.recipeapp.utils.MealApiStatus
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-/**
- * Used to keep track of the current status of the api call.
- * Used to give the user an indication depend on the status
- */
-enum class MealApiStatus { LOADING, ERROR, DONE }
+
 
 /**
  * the ViewModel attached to FoodCategoryFragment

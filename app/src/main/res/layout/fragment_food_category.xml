@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="recipeListViewModel"
+            name="categoriesViewModel"
             type="com.example.recipeapp.categoryList.FoodCategoryViewModel" />
     </data>
 
@@ -26,7 +26,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:spanCount="2"
-            app:listData="@{recipeListViewModel.categories}"
+            app:foodCategoryData="@{categoriesViewModel.categories}"
             tools:listitem="@layout/grid_food_category_item"/>
 
 
@@ -34,7 +34,7 @@
             android:id="@+id/status_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:mealApiStatus="@{recipeListViewModel.status}"
+            app:mealApiStatus="@{categoriesViewModel.status}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.recipeapp.R
+import com.example.recipeapp.databinding.FragmentRecipesBinding
 
 
 /**
@@ -14,12 +16,25 @@ import com.example.recipeapp.R
  * create an instance of this fragment.
  */
 class RecipesFragment : Fragment() {
+//    val viewModel: RecipesViewModel by lazy {
+//        ViewModelProvider(this, ).get(RecipesViewModel::class.java)
+//    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val foodCategory = RecipesFragmentArgs.fromBundle(requireArguments()).selectedCategory
+        val viewModelFactory = RecipesViewModelFactory(foodCategory)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipes, container, false)
+        val binding = FragmentRecipesBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+
+        binding.recipesViewModel =
+            ViewModelProvider(this, viewModelFactory).get(RecipesViewModel::class.java)
+
+        binding.recipesList.adapter = RecipesAdapter()
+        return binding.root
     }
 
 }

@@ -32,7 +32,7 @@ class FoodCategoryFragment : Fragment() {
         binding.lifecycleOwner = this
 
         // Giving the binding access to the FoodCategoryViewModel
-        binding.recipeListViewModel = viewModel
+        binding.categoriesViewModel = viewModel
 
         // Setting up recyclerview with an adapter
         binding.categoryGrid.adapter = FoodCategoryAdapter(FoodCategoryAdapter.OnClickListener {
