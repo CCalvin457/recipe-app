@@ -28,6 +28,10 @@ class FoodCategoryViewModel: ViewModel() {
     val status: LiveData<MealApiStatus>
         get() = _status
 
+    private val _navigateToSelectedCategory = MutableLiveData<FoodCategory>()
+    val navigateToSelectedCategory: LiveData<FoodCategory>
+        get() = _navigateToSelectedCategory
+
     init {
         getFoodCategories()
     }
@@ -45,5 +49,13 @@ class FoodCategoryViewModel: ViewModel() {
                 _categories.value = null
             }
         }
+    }
+
+    fun displaySelectedCategory(foodCategory: FoodCategory) {
+        _navigateToSelectedCategory.value = foodCategory
+    }
+
+    fun displaySelectedCategoryComplete() {
+        _navigateToSelectedCategory.value = null
     }
 }

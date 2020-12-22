@@ -3,11 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/foodCategoryFragment">
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="com.example.recipeapp.home.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        android:id="@+id/foodCategoryFragment"
+        android:name="com.example.recipeapp.categoryList.FoodCategoryFragment"
+        android:label="FoodCategoryFragment" >
+        <action
+            android:id="@+id/action_foodCategoryFragment_to_recipesFragment"
+            app:destination="@id/recipesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.example.recipeapp.recipes.RecipesFragment"
+        android:label="RecipesFragment" >
+        <argument
+            android:name="selectedCategory"
+            app:argType="com.example.recipeapp.network.FoodCategory" />
+    </fragment>
 </navigation>

@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".categoryList.FoodCategoryFragment">
+        tools:context="com.example.recipeapp.categoryList.FoodCategoryFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_grid"

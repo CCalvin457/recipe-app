@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.databinding.FragmentFoodCategoryBinding
 
 /**
@@ -35,7 +36,13 @@ class FoodCategoryFragment : Fragment() {
 
         // Setting up recyclerview with an adapter
         binding.categoryGrid.adapter = FoodCategoryAdapter(FoodCategoryAdapter.OnClickListener {
+            it?.let {
+                this.findNavController()
+                    .navigate(FoodCategoryFragmentDirections
+                        .actionFoodCategoryFragmentToRecipesFragment(it))
 
+                viewModel.displaySelectedCategoryComplete()
+            }
         })
         return binding.root
     }
