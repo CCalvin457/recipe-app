@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.databinding.FragmentFoodCategoryBinding
+import com.example.recipeapp.home.HomeFragmentDirections
 
 /**
  * This fragment is used to show the different food categories
@@ -38,8 +39,7 @@ class FoodCategoryFragment : Fragment() {
         binding.categoryGrid.adapter = FoodCategoryAdapter(FoodCategoryAdapter.OnClickListener {
             it?.let {
                 this.findNavController()
-                    .navigate(FoodCategoryFragmentDirections
-                        .actionFoodCategoryFragmentToRecipesFragment(it))
+                    .navigate(HomeFragmentDirections.actionHomeFragmentToRecipesFragment(it))
 
                 viewModel.displaySelectedCategoryComplete()
             }

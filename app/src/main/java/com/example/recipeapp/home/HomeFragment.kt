@@ -28,7 +28,7 @@ class HomeFragment : Fragment() {
         tabLayout.addTab(tabLayout.newTab().setText("Favourites"))
 
         // Setting up adapter
-        val adapter = activity?.let { HomePagerAdapter(this.requireContext(), it.supportFragmentManager, tabLayout.tabCount) }
+        val adapter = HomePagerAdapter(this.requireContext(), childFragmentManager)
         viewPager.adapter = adapter
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
