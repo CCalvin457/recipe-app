@@ -1,6 +1,8 @@
 package com.example.recipeapp.recipes
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -23,6 +25,14 @@ class RecipesAdapter: ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(Reci
 
         fun bind(recipe: Recipe) {
             binding.recipe = recipe
+            binding.favourite.isChecked = binding.recipe.isFavourite
+            binding.favourite.setOnClickListener {
+                if(binding.favourite.isChecked) {
+                    Log.d("RecipeAdapter", "is Checked")
+                } else {
+                    Log.d("RecipeAdapter", "is NOT Checked")
+                }
+            }
             binding.executePendingBindings()
         }
     }

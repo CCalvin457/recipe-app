@@ -24,7 +24,7 @@ class HomeFragment : Fragment() {
         viewPager = binding.viewPager
 
         // Creating tabs
-        tabLayout.addTab(tabLayout.newTab().setText("Recipes"))
+        tabLayout.addTab(tabLayout.newTab().setText("Categories"))
         tabLayout.addTab(tabLayout.newTab().setText("Favourites"))
 
         // Setting up adapter

@@ -29,6 +29,9 @@ class RecipesViewModel(foodCategory: FoodCategory): ViewModel() {
             try {
                 _recipesList.value =
                     MealDBApi.retrofitService.getRecipesByCategory(foodCategory.category).meals
+
+                // TODO: Check for favourites against database ?
+                
                 _status.value = MealApiStatus.DONE
             } catch(e: Exception) {
                 _status.value = MealApiStatus.ERROR

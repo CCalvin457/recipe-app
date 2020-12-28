@@ -10,4 +10,6 @@ data class Meals(val meals: List<Recipe>)
 data class Recipe(
     @Json(name = "idMeal") val id: Int,
     @Json(name = "strMeal") val name: String,
-    @Json(name = "strMealThumb") val thumbnail: String): Parcelable
+    @Json(name = "strMealThumb") val thumbnail: String): Parcelable {
+        var isFavourite: Boolean = false
+    }

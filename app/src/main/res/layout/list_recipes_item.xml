@@ -27,15 +27,35 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/recipe_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
             android:text="@{recipe.name}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/favourite"
             app:layout_constraintStart_toEndOf="@+id/recipe_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/favourite"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/toggle_favourite"
+            android:textOff=" "
+            android:textOn=" "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/recipe_name"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
