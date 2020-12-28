@@ -25,7 +25,12 @@ class RecipesAdapter: ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(Reci
 
         fun bind(recipe: Recipe) {
             binding.recipe = recipe
-            binding.favourite.isChecked = binding.recipe.isFavourite
+//            binding.favourite.isChecked = binding.recipe.isFavourite
+            if (binding.favourite.isChecked) {
+                Log.d("RecipeAdapter", "${recipe.name} is Checked")
+            } else {
+                Log.d("RecipeAdapter", "${recipe.name} is NOT Checked")
+            }
             binding.favourite.setOnClickListener {
                 if(binding.favourite.isChecked) {
                     Log.d("RecipeAdapter", "is Checked")

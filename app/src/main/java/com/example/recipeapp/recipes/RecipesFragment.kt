@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.recipeapp.R
+import com.example.recipeapp.database.FoodDatabase
 import com.example.recipeapp.databinding.FragmentRecipesBinding
 
 
@@ -25,6 +26,10 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val foodCategory = RecipesFragmentArgs.fromBundle(requireArguments()).selectedCategory
+
+        val application = requireNotNull(this.activity).application
+        val dataSource = FoodDatabase.getInstance(application).foodDatabaseDao
+
         val viewModelFactory = RecipesViewModelFactory(foodCategory)
         // Inflate the layout for this fragment
         val binding = FragmentRecipesBinding.inflate(inflater)
