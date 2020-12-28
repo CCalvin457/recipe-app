@@ -6,8 +6,11 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "recipe_table")
 data class Recipe(
-    @PrimaryKey(autoGenerate = false)
-    var id: Int = 0,
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0L,
+
+    @ColumnInfo(name = "recipe_id")
+    var recipeId: Int = 0,
 
     @ColumnInfo(name = "recipe_name")
     var recipeName: String = "",

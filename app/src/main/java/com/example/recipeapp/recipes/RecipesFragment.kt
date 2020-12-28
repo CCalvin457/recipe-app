@@ -30,7 +30,7 @@ class RecipesFragment : Fragment() {
         val application = requireNotNull(this.activity).application
         val dataSource = FoodDatabase.getInstance(application).foodDatabaseDao
 
-        val viewModelFactory = RecipesViewModelFactory(foodCategory)
+        val viewModelFactory = RecipesViewModelFactory(dataSource, foodCategory)
         // Inflate the layout for this fragment
         val binding = FragmentRecipesBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -38,7 +38,7 @@ class RecipesFragment : Fragment() {
         binding.recipesViewModel =
             ViewModelProvider(this, viewModelFactory).get(RecipesViewModel::class.java)
 
-        binding.recipesList.adapter = RecipesAdapter()
+        binding.recipesList.adapter = RecipesAdapter(dataSource)
         return binding.root
     }
 

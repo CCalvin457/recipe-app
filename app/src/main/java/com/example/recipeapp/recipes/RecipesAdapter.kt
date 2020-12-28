@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.database.FoodDatabaseDao
 import com.example.recipeapp.databinding.ListRecipesItemBinding
 import com.example.recipeapp.network.Recipe
 
-class RecipesAdapter: ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback) {
+class RecipesAdapter(private val dataSource: FoodDatabaseDao):
+    ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback) {
     class RecipesViewHolder (private var binding: ListRecipesItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         companion object {
@@ -23,14 +25,9 @@ class RecipesAdapter: ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(Reci
             }
         }
 
-        fun bind(recipe: Recipe) {
+        fun bind(recipe: Recipe, database: FoodDatabaseDao) {
+            binding.favourite.isChecked = recipe.isFavourite
             binding.recipe = recipe
-//            binding.favourite.isChecked = binding.recipe.isFavourite
-            if (binding.favourite.isChecked) {
-                Log.d("RecipeAdapter", "${recipe.name} is Checked")
-            } else {
-                Log.d("RecipeAdapter", "${recipe.name} is NOT Checked")
-            }
             binding.favourite.setOnClickListener {
                 if(binding.favourite.isChecked) {
                     Log.d("RecipeAdapter", "is Checked")
@@ -58,6 +55,6 @@ class RecipesAdapter: ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(Reci
 
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         val recipe = getItem(position)
-        holder.bind(recipe)
+        holder.bind(recipe, dataSource)
     }
 }

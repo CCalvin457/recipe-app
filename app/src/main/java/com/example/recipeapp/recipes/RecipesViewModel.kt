@@ -22,6 +22,11 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
     val status: LiveData<MealApiStatus>
         get() = _status
 
+//    private val _favouritesList = MutableLiveData<List<com.example.recipeapp.database.Recipe?>>()
+//    val favouritesList: LiveData<List<com.example.recipeapp.database.Recipe?>>
+//        get() = _favouritesList
+    val favouritesList = database.getFavourites()
+
     init {
         getRecipesByCategory(foodCategory)
     }
@@ -34,7 +39,13 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
                     MealDBApi.retrofitService.getRecipesByCategory(foodCategory.category).meals
 
                 // TODO: Check for favourites against database ?
-                
+                favouritesList.value?.let { favouritesList ->
+                    for(recipe in favouritesList) {
+                        recipe.recipeId?.let {
+                            _recipesList.value?.find { it.id == recipe.recipeId }?.isFavourite = true
+                        }
+                    }
+                }
                 _status.value = MealApiStatus.DONE
             } catch(e: Exception) {
                 _status.value = MealApiStatus.ERROR

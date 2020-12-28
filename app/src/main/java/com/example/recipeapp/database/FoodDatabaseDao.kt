@@ -15,5 +15,5 @@ interface FoodDatabaseDao {
     suspend fun update(recipe: Recipe)
 
     @Query("SELECT * FROM recipe_table")
-    suspend fun getFavourites(): LiveData<List<Recipe>>
+    fun getFavourites(): LiveData<List<Recipe>>
 }
