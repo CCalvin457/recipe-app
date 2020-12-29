@@ -1,19 +1,22 @@
 package com.example.recipeapp.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface FoodDatabaseDao {
     @Insert
-    suspend fun insert(recipe: Recipe)
+    suspend fun insert(databaseRecipe: DatabaseRecipe)
 
     @Update
-    suspend fun update(recipe: Recipe)
+    suspend fun update(databaseRecipe: DatabaseRecipe)
+
+    @Delete
+    suspend fun delete(databaseRecipe: DatabaseRecipe)
 
     @Query("SELECT * FROM recipe_table")
-    fun getFavourites(): LiveData<List<Recipe>>
+    suspend fun getFavourites(): List<DatabaseRecipe>
+
+    @Query("SELECT * FROM recipe_table WHERE recipe_id = :key")
+    suspend fun getFavouriteRecipe(key: Int): DatabaseRecipe
 }

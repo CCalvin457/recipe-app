@@ -1,9 +1,11 @@
 package com.example.recipeapp.recipes
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.recipeapp.database.DatabaseRecipe
 import com.example.recipeapp.database.FoodDatabaseDao
 import com.example.recipeapp.network.FoodCategory
 import com.example.recipeapp.network.MealDBApi
@@ -25,9 +27,10 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
 //    private val _favouritesList = MutableLiveData<List<com.example.recipeapp.database.Recipe?>>()
 //    val favouritesList: LiveData<List<com.example.recipeapp.database.Recipe?>>
 //        get() = _favouritesList
-    val favouritesList = database.getFavourites()
+    private val favouritesList = MutableLiveData<List<DatabaseRecipe>>()
 
     init {
+        getFavouriteRecipes()
         getRecipesByCategory(foodCategory)
     }
 
@@ -51,6 +54,12 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
                 _status.value = MealApiStatus.ERROR
                 _recipesList.value = null
             }
+        }
+    }
+
+    private fun getFavouriteRecipes() {
+        viewModelScope.launch {
+            favouritesList.value = database.getFavourites()
         }
     }
 }
