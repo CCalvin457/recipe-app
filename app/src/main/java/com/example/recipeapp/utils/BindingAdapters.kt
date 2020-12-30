@@ -4,13 +4,10 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.recipeapp.categoryList.FoodCategoryAdapter
-import com.example.recipeapp.network.FoodCategory
-import com.example.recipeapp.network.Recipe
-import com.example.recipeapp.recipes.RecipesAdapter
 import com.example.recipeapp.utils.MealApiStatus
 
 @BindingAdapter("imageUrl")
@@ -44,19 +41,11 @@ fun bindStatus(statusImageView: ImageView, status: MealApiStatus?) {
     }
 }
 
-@BindingAdapter("foodCategoryData")
-fun bindFoodCateooryView(recyclerView: RecyclerView, data: List<FoodCategory>?) {
+@BindingAdapter("recyclerViewData")
+fun <T, LA: ListAdapter<T, RecyclerView.ViewHolder>>
+        bindRecycleViewData(recyclerView: RecyclerView, data: List<T>?) {
     data?.let {
-        val adapter = recyclerView.adapter as FoodCategoryAdapter
-        adapter.submitList(data)
-    }
-}
-
-
-@BindingAdapter("recipesListData")
-fun bindRecipesListView(recyclerView: RecyclerView, data: List<Recipe>?) {
-    data?.let {
-        val adapter = recyclerView.adapter as RecipesAdapter
+        val adapter = recyclerView.adapter as LA
         adapter.submitList(data)
     }
 }

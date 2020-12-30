@@ -18,5 +18,5 @@ interface FoodDatabaseDao {
     suspend fun getFavourites(): List<DatabaseRecipe>
 
     @Query("SELECT * FROM recipe_table WHERE recipe_id = :key")
-    suspend fun getFavouriteRecipe(key: Int): DatabaseRecipe
+    suspend fun getFavouriteRecipeByRecipeId(key: Int): DatabaseRecipe
 }

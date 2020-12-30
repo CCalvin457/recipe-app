@@ -27,7 +27,7 @@ class FavouritesFragment : Fragment() {
 
         binding.lifecycleOwner = this
 
-
+        binding.favouritesList.adapter = FavouritesAdapter()
 
         return binding.root
     }

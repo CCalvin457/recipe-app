@@ -53,7 +53,7 @@ class RecipesAdapter(private val dataSource: FoodDatabaseDao, private val scope:
 
         private fun remove(recipeId: Int) {
             scope.launch {
-                val favouriteRecipe = database.getFavouriteRecipe(recipeId)
+                val favouriteRecipe = database.getFavouriteRecipeByRecipeId(recipeId)
                 database.delete(favouriteRecipe)
             }
         }
