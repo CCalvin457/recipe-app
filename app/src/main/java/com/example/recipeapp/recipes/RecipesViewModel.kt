@@ -59,7 +59,7 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
 
     private fun getFavouriteRecipes() {
         viewModelScope.launch {
-            favouritesList.value = database.getFavourites()
+            favouritesList.value = database.getFavouritesStatic()
         }
     }
 }

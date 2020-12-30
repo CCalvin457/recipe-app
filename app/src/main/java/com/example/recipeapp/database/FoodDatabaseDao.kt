@@ -14,8 +14,11 @@ interface FoodDatabaseDao {
     @Delete
     suspend fun delete(databaseRecipe: DatabaseRecipe)
 
+    @Query("SELECT * FROM recipe_table ORDER BY id DESC")
+    fun getFavourites(): LiveData<List<DatabaseRecipe>>
+
     @Query("SELECT * FROM recipe_table")
-    suspend fun getFavourites(): List<DatabaseRecipe>
+    suspend fun getFavouritesStatic(): List<DatabaseRecipe>
 
     @Query("SELECT * FROM recipe_table WHERE recipe_id = :key")
     suspend fun getFavouriteRecipeByRecipeId(key: Int): DatabaseRecipe
