@@ -5,9 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.viewpager.widget.ViewPager
 import com.example.recipeapp.database.FoodDatabase
 import com.example.recipeapp.database.FoodDatabaseDao
+import com.example.recipeapp.databinding.ActivityMainBinding
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -43,5 +48,4 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-
 }

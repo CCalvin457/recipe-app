@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.recipeapp.MainActivity
 import com.example.recipeapp.R
 import com.example.recipeapp.database.FoodDatabase
 import com.example.recipeapp.databinding.FragmentRecipesBinding
@@ -24,8 +26,10 @@ class RecipesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val foodCategory = RecipesFragmentArgs.fromBundle(requireArguments()).selectedCategory
+
+        // Set toolbar title
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = foodCategory.category
 
         val application = requireNotNull(this.activity).application
         val dataSource = FoodDatabase.getInstance(application).foodDatabaseDao
