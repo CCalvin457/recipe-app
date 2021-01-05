@@ -11,6 +11,11 @@
         <argument
             android:name="selectedCategory"
             app:argType="com.example.recipeapp.network.FoodCategory" />
+        <action
+            android:id="@+id/action_recipesFragment_to_recipeDetailsFragment"
+            app:destination="@id/recipeDetailsFragment"
+            app:popUpTo="@id/recipesFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -20,5 +25,13 @@
         <action
             android:id="@+id/action_homeFragment_to_recipesFragment"
             app:destination="@id/recipesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeDetailsFragment"
+        android:name="com.example.recipeapp.recipeDetails.RecipeDetailsFragment"
+        android:label="RecipeDetailsFragment" >
+        <argument
+            android:name="recipeId"
+            app:argType="integer" />
     </fragment>
 </navigation>

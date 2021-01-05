@@ -11,7 +11,7 @@ import com.example.recipeapp.databinding.ListRecipesItemBinding
 import com.example.recipeapp.network.Recipe
 import kotlinx.coroutines.*
 
-class RecipesAdapter(private val dataSource: FoodDatabaseDao, private val scope: CoroutineScope):
+class RecipesAdapter(private val onClickListener: OnClickListner, private val dataSource: FoodDatabaseDao, private val scope: CoroutineScope):
     ListAdapter<Recipe, RecipesAdapter.RecipesViewHolder>(RecipesDiffCallback) {
 
     class RecipesViewHolder (private var binding: ListRecipesItemBinding,
@@ -75,6 +75,15 @@ class RecipesAdapter(private val dataSource: FoodDatabaseDao, private val scope:
 
     override fun onBindViewHolder(holder: RecipesViewHolder, position: Int) {
         val recipe = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(recipe)
+        }
         holder.bind(recipe)
+    }
+
+    class OnClickListner(val clickListener: (recipe: Recipe) -> Unit) {
+        fun onClick(recipe: Recipe) {
+            clickListener(recipe)
+        }
     }
 }

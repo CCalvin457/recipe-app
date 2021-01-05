@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.MainActivity
 import com.example.recipeapp.R
 import com.example.recipeapp.database.FoodDatabase
@@ -37,12 +39,27 @@ class RecipesFragment : Fragment() {
         val viewModelFactory = RecipesViewModelFactory(dataSource, foodCategory)
         // Inflate the layout for this fragment
         val binding = FragmentRecipesBinding.inflate(inflater)
+        val viewModel =
+            ViewModelProvider(this, viewModelFactory).get(RecipesViewModel::class.java)
         binding.lifecycleOwner = this
 
-        binding.recipesViewModel =
-            ViewModelProvider(this, viewModelFactory).get(RecipesViewModel::class.java)
+        binding.recipesViewModel = viewModel
 
-        binding.recipesList.adapter = RecipesAdapter(dataSource, scope)
+
+        binding.recipesList.adapter = RecipesAdapter(RecipesAdapter.OnClickListner {
+            viewModel.displayRecipeDetails(it)
+        }, dataSource, scope)
+
+
+        viewModel.navigateToSelectedRecipe.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                this.findNavController()
+                    .navigate(RecipesFragmentDirections
+                        .actionRecipesFragmentToRecipeDetailsFragment(it.id))
+
+                viewModel.displayRecipeDetailsCompleted()
+            }
+        })
         return binding.root
     }
 

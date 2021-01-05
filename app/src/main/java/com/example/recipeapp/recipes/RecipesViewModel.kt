@@ -24,10 +24,13 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
     val status: LiveData<MealApiStatus>
         get() = _status
 
-//    private val _favouritesList = MutableLiveData<List<com.example.recipeapp.database.Recipe?>>()
-//    val favouritesList: LiveData<List<com.example.recipeapp.database.Recipe?>>
-//        get() = _favouritesList
     private val favouritesList = MutableLiveData<List<DatabaseRecipe>>()
+
+    private val _navigateToSelectedRecipe = MutableLiveData<Recipe>()
+    val navigateToSelectedRecipe: LiveData<Recipe>
+        get() = _navigateToSelectedRecipe
+
+
 
     init {
         getFavouriteRecipes()
@@ -61,5 +64,13 @@ class RecipesViewModel(dataSource: FoodDatabaseDao,
         viewModelScope.launch {
             favouritesList.value = database.getFavouritesStatic()
         }
+    }
+
+    fun displayRecipeDetails(recipe: Recipe) {
+        _navigateToSelectedRecipe.value = recipe
+    }
+
+    fun displayRecipeDetailsCompleted() {
+        _navigateToSelectedRecipe.value = null
     }
 }
