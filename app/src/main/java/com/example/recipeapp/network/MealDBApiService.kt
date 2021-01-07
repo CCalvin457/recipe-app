@@ -36,7 +36,7 @@ interface MealDBApiService {
     suspend fun getRecipesByCategory(@Query("c") category: String): Meals
 
     @GET("lookup.php")
-    suspend fun getRecipe(@Query("i") id: Int): Recipes
+    suspend fun getRecipe(@Query("i") id: Int): RecipeDetails
 
 }
 

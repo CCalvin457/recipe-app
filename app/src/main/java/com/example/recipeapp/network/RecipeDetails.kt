@@ -70,6 +70,8 @@ data class RecipeDetails(val id: Int,
                          val thumbnail: String,
                          val tags: String?,
                          val video: String?,
-                         val ingredients: Ingredients)
+                         val ingredients: List<Ingredient>,
+                         val source: String?,
+                         val dateModified: String?)
 
-data class Ingredients(val ingredient: String, val measurement: String)
+data class Ingredient(val ingredient: String, val measurement: String)

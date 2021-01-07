@@ -12,7 +12,7 @@ import com.squareup.moshi.JsonAdapter
 import kotlinx.coroutines.launch
 
 class RecipeDetailsViewModel(recipeId: Int): ViewModel() {
-    private val _recipe = MutableLiveData<Recipes>()
+    private val _recipe = MutableLiveData<RecipeDetails>()
     private val _recipeDetails = MutableLiveData<RecipeDetails>()
     val recipeDetails: LiveData<RecipeDetails>
         get() = _recipeDetails
