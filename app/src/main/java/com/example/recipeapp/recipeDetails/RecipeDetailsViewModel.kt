@@ -8,28 +8,34 @@ import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.network.MealDBApi
 import com.example.recipeapp.network.RecipeDetails
 import com.example.recipeapp.network.Recipes
+import com.example.recipeapp.utils.MealApiStatus
 import com.squareup.moshi.JsonAdapter
 import kotlinx.coroutines.launch
 
 class RecipeDetailsViewModel(recipeId: Int): ViewModel() {
-    private val _recipe = MutableLiveData<RecipeDetails>()
     private val _recipeDetails = MutableLiveData<RecipeDetails>()
     val recipeDetails: LiveData<RecipeDetails>
         get() = _recipeDetails
 
+    private val _status = MutableLiveData<MealApiStatus>()
+    val status: LiveData<MealApiStatus>
+        get() = _status
 
     init {
         getRecipe(recipeId)
     }
 
     private fun getRecipe(recipeId: Int) {
+        _status.value = MealApiStatus.LOADING
         viewModelScope.launch {
             try {
-                _recipe.value = MealDBApi.retrofitService.getRecipe(recipeId)
-                Log.d("RecipeDetailsViewModel", "${_recipe.value}")
+                _recipeDetails.value = MealDBApi.retrofitService.getRecipe(recipeId)
+                Log.d("RecipeDetailsViewModel", "${_recipeDetails.value}")
+                _status.value = MealApiStatus.DONE
             } catch(e: Exception) {
-                _recipe.value = null
+                _recipeDetails.value = null
                 Log.d("RecipeDetailsViewModel", "ERROR: ${e.message}")
+                _status.value = MealApiStatus.ERROR
             }
         }
     }

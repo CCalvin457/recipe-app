@@ -1,18 +1,13 @@
 package com.example.recipeapp.home
 
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.annotation.RequiresApi
 import androidx.viewpager.widget.ViewPager
-import com.example.recipeapp.database.FoodDatabase
-import com.example.recipeapp.database.FoodDatabaseDao
-import com.example.recipeapp.databinding.ActivityMainBinding
 import com.example.recipeapp.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -20,6 +15,7 @@ class HomeFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

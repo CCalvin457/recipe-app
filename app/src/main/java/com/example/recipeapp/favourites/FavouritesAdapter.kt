@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.database.DatabaseRecipe
 import com.example.recipeapp.databinding.ListFavouritesItemBinding
+import com.example.recipeapp.network.Recipe
+import com.example.recipeapp.recipes.RecipesAdapter
 
-class FavouritesAdapter: ListAdapter<DatabaseRecipe, FavouritesAdapter.FavouritesViewHolder>(FavouritesDiffCallback) {
+class FavouritesAdapter(private val onClickListener: FavouritesAdapter.OnClickListner): ListAdapter<DatabaseRecipe, FavouritesAdapter.FavouritesViewHolder>(FavouritesDiffCallback) {
 
     class FavouritesViewHolder(private var binding: ListFavouritesItemBinding):
         RecyclerView.ViewHolder(binding.root) {
@@ -44,6 +46,15 @@ class FavouritesAdapter: ListAdapter<DatabaseRecipe, FavouritesAdapter.Favourite
 
     override fun onBindViewHolder(holder: FavouritesViewHolder, position: Int) {
         val databaseRecipe = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(databaseRecipe)
+        }
         holder.bind(databaseRecipe)
+    }
+
+    class OnClickListner(val clickListener: (recipe: DatabaseRecipe) -> Unit) {
+        fun onClick(recipe: DatabaseRecipe) {
+            clickListener(recipe)
+        }
     }
 }

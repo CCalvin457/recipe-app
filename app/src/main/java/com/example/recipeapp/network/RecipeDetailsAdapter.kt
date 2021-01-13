@@ -30,7 +30,7 @@ class RecipeDetailsAdapter {
         val ingredientsList = mutableListOf<Ingredient>()
 
         for((index, ingredient) in ingredients.withIndex()) {
-            if(!ingredient.get(meal).toString().isNullOrBlank()) {
+            if(!ingredient.get(meal)?.toString().isNullOrBlank()) {
                 val tempIngredient = Ingredient(ingredient.get(meal).toString(),
                     measurements[index].get(meal).toString())
                 ingredientsList.add(tempIngredient)

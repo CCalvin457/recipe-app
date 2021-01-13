@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.R
 import com.example.recipeapp.database.FoodDatabase
 import com.example.recipeapp.databinding.FragmentFavouritesBinding
+import com.example.recipeapp.home.HomeFragmentDirections
 
 class FavouritesFragment : Fragment() {
 
@@ -22,12 +25,25 @@ class FavouritesFragment : Fragment() {
 
         val viewModelFactory = FavouritesViewModelFactory(dataSource)
 
-        binding.favouritesViewModel = ViewModelProvider(this, viewModelFactory)
-            .get(FavouritesViewModel::class.java)
+        val viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(FavouritesViewModel::class.java)
+
+        binding.favouritesViewModel = viewModel
 
         binding.lifecycleOwner = this
 
-        binding.favouritesList.adapter = FavouritesAdapter()
+        binding.favouritesList.adapter = FavouritesAdapter(FavouritesAdapter.OnClickListner {
+            viewModel.displayRecipeDetails(it)
+        })
+
+        viewModel.navigateToRecipeDetails.observe(viewLifecycleOwner, {
+            it?.let {
+                this.findNavController().navigate(HomeFragmentDirections
+                        .actionHomeFragmentToRecipeDetailsFragment(it.recipeId))
+
+                viewModel.displayRecipeDetailsCompleted()
+            }
+        })
 
         return binding.root
     }

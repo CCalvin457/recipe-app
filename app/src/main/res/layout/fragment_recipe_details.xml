@@ -1,23 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="recipeDetailsViewModel"
             type="com.example.recipeapp.recipeDetails.RecipeDetailsViewModel" />
     </data>
 
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".recipeDetails.RecipeDetailsFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-</FrameLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="true"
+                android:paddingBottom="@dimen/spacing_normal"
+                tools:context=".recipeDetails.RecipeDetailsFragment">
+                <ImageView
+                    android:id="@+id/recipe_image"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:scaleType="centerCrop"
+                    app:imageUrl="@{recipeDetailsViewModel.recipeDetails.thumbnail}"
+                    app:layout_constraintDimensionRatio="2:1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    tools:src="@tools:sample/backgrounds/scenic"/>
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textStyle="bold"
+                    style="?attr/textAppearanceHeadline5"
+                    android:text="@{recipeDetailsViewModel.recipeDetails.name}"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_image"
+                    app:layout_constraintStart_toEndOf="@+id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                    tools:text="Steak and Cheese Sandwich"/>
+
+                <TextView
+                    android:id="@+id/recipe_category_and_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="?attr/subtitleTextAppearance"
+                    app:recipeDetailsSubtitle="@{recipeDetailsViewModel.recipeDetails}"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
+                    app:layout_constraintStart_toEndOf="@+id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+                    tools:text="Western | Sandwich"/>
+
+                <TextView
+                    android:id="@+id/recipe_source"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    style="?attr/subtitleTextAppearance"
+                    app:recipeDetailsSource="@{recipeDetailsViewModel.recipeDetails.source}"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_category_and_location"
+                    app:layout_constraintStart_toEndOf="@id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@id/end_guideline"
+                    tools:text="source: URL"/>
+
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/recipe_video_layout"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/recipe_source"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/start_guideline"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/end_guideline">-->
+
+<!--                    <VideoView-->
+<!--                        android:id="@+id/recipe_video_standard"-->
+<!--                        android:layout_width="0dp"-->
+<!--                        android:layout_height="0dp"-->
+<!--                        android:layout_marginTop="@dimen/spacing_normal"-->
+<!--                        app:layout_constraintDimensionRatio="2:1"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:recipeDetailsVideo="@{recipeDetailsViewModel.recipeDetails.video}"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        tools:visibility="gone" />-->
+
+<!--                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView-->
+<!--                        android:id="@+id/recipe_video_youtube"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/spacing_normal"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:recipeDetailsYoutube="@{recipeDetailsViewModel.recipeDetails.video}"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        tools:visibility="visible"/>-->
+
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+                    android:id="@+id/recipe_video_youtube"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:visibility="gone"
+                    app:recipeDetailsYoutube="@{recipeDetailsViewModel.recipeDetails.video}"
+                    app:layout_constraintTop_toBottomOf="@id/recipe_source"
+                    app:layout_constraintStart_toEndOf="@id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@id/end_guideline"
+                    tools:visibility="visible"/>
+
+                <LinearLayout
+                    android:id="@+id/ingredients_list_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/recipe_video_youtube"
+                    app:layout_constraintStart_toEndOf="@id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@id/end_guideline">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Ingredients:"
+                        android:textStyle="bold"
+                        style="?attr/textAppearanceHeadline6" />
+
+                    <TextView
+                        android:id="@+id/recipe_ingredients"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        style="?attr/textAppearanceBody1"
+                        app:recipeDetailsIngredients="@{recipeDetailsViewModel.recipeDetails.ingredients}"
+                        tools:text="&#8226; testing">
+                    </TextView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/recipe_instructions_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/ingredients_list_layout"
+                    app:layout_constraintStart_toEndOf="@+id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@id/end_guideline"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Instructions:"
+                        android:textStyle="bold"
+                        style="?attr/textAppearanceHeadline6"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        style="?attr/textAppearanceBody1"
+                        android:text="@{recipeDetailsViewModel.recipeDetails.instructions}"
+                        tools:text="@tools:sample/lorem/random"/>
+                </LinearLayout>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/start_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/spacing_normal" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/end_guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/spacing_normal" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
