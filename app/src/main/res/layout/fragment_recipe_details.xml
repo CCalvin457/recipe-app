@@ -7,6 +7,10 @@
         <variable
             name="recipeDetailsViewModel"
             type="com.example.recipeapp.recipeDetails.RecipeDetailsViewModel" />
+        <variable
+            name="youtubeHelper"
+            type="com.example.recipeapp.utils.YouTubeHelper" />
+        <import type="android.view.View" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -64,32 +68,38 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     style="?attr/subtitleTextAppearance"
+                    android:visibility="@{recipeDetailsViewModel.recipeDetails.source == null || recipeDetailsViewModel.recipeDetails.source.empty ? View.GONE : View.VISIBLE}"
                     app:recipeDetailsSource="@{recipeDetailsViewModel.recipeDetails.source}"
                     app:layout_constraintTop_toBottomOf="@id/recipe_category_and_location"
                     app:layout_constraintStart_toEndOf="@id/start_guideline"
                     app:layout_constraintEnd_toStartOf="@id/end_guideline"
                     tools:text="source: URL"/>
 
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:id="@+id/recipe_video_layout"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:layout_constraintTop_toBottomOf="@id/recipe_source"-->
-<!--                    app:layout_constraintStart_toEndOf="@id/start_guideline"-->
-<!--                    app:layout_constraintEnd_toStartOf="@id/end_guideline">-->
+                <FrameLayout
+                    android:id="@+id/recipe_video_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{recipeDetailsViewModel.recipeDetails.video == null || recipeDetailsViewModel.recipeDetails.video.empty ? View.GONE : View.VISIBLE}"
+                    
+                    app:layout_constraintTop_toBottomOf="@id/recipe_source"
+                    app:layout_constraintStart_toEndOf="@id/start_guideline"
+                    app:layout_constraintEnd_toStartOf="@id/end_guideline">
 
-<!--                    <VideoView-->
-<!--                        android:id="@+id/recipe_video_standard"-->
-<!--                        android:layout_width="0dp"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_marginTop="@dimen/spacing_normal"-->
-<!--                        app:layout_constraintDimensionRatio="2:1"-->
-<!--                        android:visibility="gone"-->
-<!--                        app:recipeDetailsVideo="@{recipeDetailsViewModel.recipeDetails.video}"-->
-<!--                        app:layout_constraintTop_toTopOf="parent"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        tools:visibility="gone" />-->
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:layout_marginTop="@dimen/spacing_normal"
+                        app:imageUrl="@{youtubeHelper.Companion.getThumbnail(recipeDetailsViewModel.recipeDetails.video)}"
+                        tools:src="@tools:sample/backgrounds/scenic"/>
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:translationY="65dp"
+                        android:src="@drawable/play"
+                        tools:srcCompat="@drawable/play" />
 
 <!--                    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView-->
 <!--                        android:id="@+id/recipe_video_youtube"-->
@@ -103,19 +113,7 @@
 <!--                        app:layout_constraintEnd_toEndOf="parent"-->
 <!--                        tools:visibility="visible"/>-->
 
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-                <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
-                    android:id="@+id/recipe_video_youtube"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:visibility="gone"
-                    app:recipeDetailsYoutube="@{recipeDetailsViewModel.recipeDetails.video}"
-                    app:layout_constraintTop_toBottomOf="@id/recipe_source"
-                    app:layout_constraintStart_toEndOf="@id/start_guideline"
-                    app:layout_constraintEnd_toStartOf="@id/end_guideline"
-                    tools:visibility="visible"/>
+                </FrameLayout>
 
                 <LinearLayout
                     android:id="@+id/ingredients_list_layout"
@@ -123,7 +121,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:orientation="vertical"
-                    app:layout_constraintTop_toBottomOf="@+id/recipe_video_youtube"
+                    app:layout_constraintTop_toBottomOf="@+id/recipe_video_layout"
                     app:layout_constraintStart_toEndOf="@id/start_guideline"
                     app:layout_constraintEnd_toStartOf="@id/end_guideline">
 
