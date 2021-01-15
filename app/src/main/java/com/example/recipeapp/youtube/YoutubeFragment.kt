@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.recipeapp.R
 import com.example.recipeapp.databinding.FragmentYoutubeBinding
@@ -14,6 +15,7 @@ class YoutubeFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val videoId = YoutubeFragmentArgs.fromBundle(requireArguments()).videoId
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
         // Inflate the layout for this fragment
         val binding = FragmentYoutubeBinding.inflate(inflater)
@@ -28,4 +30,8 @@ class YoutubeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (requireActivity() as AppCompatActivity).supportActionBar?.show()
+    }
 }
