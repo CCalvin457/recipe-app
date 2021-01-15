@@ -55,7 +55,7 @@ class RecipesFragment : Fragment() {
             it?.let {
                 this.findNavController()
                     .navigate(RecipesFragmentDirections
-                        .actionRecipesFragmentToRecipeDetailsFragment(it.id))
+                        .actionRecipesFragmentToRecipeDetailsFragment(it.id, it.name))
 
                 viewModel.displayRecipeDetailsCompleted()
             }

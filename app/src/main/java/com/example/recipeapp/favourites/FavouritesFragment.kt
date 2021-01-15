@@ -39,7 +39,7 @@ class FavouritesFragment : Fragment() {
         viewModel.navigateToRecipeDetails.observe(viewLifecycleOwner, {
             it?.let {
                 this.findNavController().navigate(HomeFragmentDirections
-                        .actionHomeFragmentToRecipeDetailsFragment(it.recipeId))
+                        .actionHomeFragmentToRecipeDetailsFragment(it.recipeId, it.recipeName))
 
                 viewModel.displayRecipeDetailsCompleted()
             }

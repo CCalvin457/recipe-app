@@ -4,7 +4,7 @@ import android.util.Log
 
 class YouTubeHelper {
     companion object {
-        private fun getId(url: String?): String? {
+        fun getId(url: String?): String? {
             if(!url.isNullOrBlank()) {
                 return url.split("v=")[1]
             }

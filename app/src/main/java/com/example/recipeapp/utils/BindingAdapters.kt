@@ -12,6 +12,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.recipeapp.network.RecipeDetails
 import com.example.recipeapp.utils.MealApiStatus
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -50,5 +53,20 @@ fun <T, LA: ListAdapter<T, RecyclerView.ViewHolder>>
     data?.let {
         val adapter = recyclerView.adapter as LA
         adapter.submitList(data)
+    }
+}
+
+@BindingAdapter("youtubeView")
+fun bindRecipeDetailsYoutube(youtubePlayer: YouTubePlayerView, videoId: String?) {
+    videoId?.let {
+        val playerUiController = youtubePlayer.getPlayerUiController()
+        playerUiController.showFullscreenButton(true)
+        playerUiController.showYouTubeButton(false)
+        youtubePlayer.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
+            override fun onReady(youTubePlayer: YouTubePlayer) {
+                super.onReady(youTubePlayer)
+                youTubePlayer.loadVideo(videoId, 0f)
+            }
+        })
     }
 }

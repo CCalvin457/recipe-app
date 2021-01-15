@@ -3,8 +3,11 @@ package com.example.recipeapp.recipeDetails
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.databinding.FragmentRecipeDetailsBinding
 
 @Suppress("DEPRECATION")
@@ -14,14 +17,36 @@ class RecipeDetailsFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val arguments = RecipeDetailsFragmentArgs.fromBundle(requireArguments())
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = arguments.recipeName
+
         // Inflate the layout for this fragment
         val binding = FragmentRecipeDetailsBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        val recipeId = RecipeDetailsFragmentArgs.fromBundle(requireArguments()).recipeId
-        val viewModelFactory = RecipeDetailsViewModelFactory(recipeId)
 
-        binding.recipeDetailsViewModel =
-            ViewModelProvider(this, viewModelFactory).get(RecipeDetailsViewModel::class.java)
+        val viewModelFactory = RecipeDetailsViewModelFactory(arguments.recipeId)
+        val viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(RecipeDetailsViewModel::class.java)
+
+        binding.recipeDetailsViewModel = viewModel
+
+
+        binding.recipeVideoLayout.setOnClickListener {
+            Log.d("RecipeDetailsFragment", "click listener")
+            viewModel.videoId.value?.let {
+                viewModel.displayVideoView(it)
+            }
+        }
+
+        viewModel.navigateToVideoView.observe(viewLifecycleOwner, {
+            it?.let {
+                this.findNavController().navigate(RecipeDetailsFragmentDirections
+                    .actionRecipeDetailsFragmentToYoutubeFragment(it))
+
+                viewModel.displayVideoViewCompleted()
+            }
+        })
 
 //        val youtubePlayer = binding.recipeVideoYoutube
 //

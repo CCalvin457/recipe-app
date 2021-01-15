@@ -9,6 +9,7 @@ import com.example.recipeapp.network.MealDBApi
 import com.example.recipeapp.network.RecipeDetails
 import com.example.recipeapp.network.Recipes
 import com.example.recipeapp.utils.MealApiStatus
+import com.example.recipeapp.utils.YouTubeHelper
 import com.squareup.moshi.JsonAdapter
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,14 @@ class RecipeDetailsViewModel(recipeId: Int): ViewModel() {
     val status: LiveData<MealApiStatus>
         get() = _status
 
+    private val _videoId = MutableLiveData<String>()
+    val videoId: LiveData<String>
+        get() = _videoId
+
+    private val _navigateToVideoView = MutableLiveData<String>()
+    val navigateToVideoView: LiveData<String>
+        get() = _navigateToVideoView
+
     init {
         getRecipe(recipeId)
     }
@@ -31,6 +40,7 @@ class RecipeDetailsViewModel(recipeId: Int): ViewModel() {
             try {
                 _recipeDetails.value = MealDBApi.retrofitService.getRecipe(recipeId)
                 Log.d("RecipeDetailsViewModel", "${_recipeDetails.value}")
+                getVideoId(_recipeDetails.value?.video)
                 _status.value = MealApiStatus.DONE
             } catch(e: Exception) {
                 _recipeDetails.value = null
@@ -38,6 +48,20 @@ class RecipeDetailsViewModel(recipeId: Int): ViewModel() {
                 _status.value = MealApiStatus.ERROR
             }
         }
+    }
+
+    private fun getVideoId(url: String?) {
+        if(!url.isNullOrBlank()) {
+            _videoId.value = YouTubeHelper.getId(url)
+        }
+    }
+
+    fun displayVideoView(videoId: String) {
+        _navigateToVideoView.value = videoId
+    }
+
+    fun displayVideoViewCompleted() {
+        _navigateToVideoView.value = null
     }
 }
 

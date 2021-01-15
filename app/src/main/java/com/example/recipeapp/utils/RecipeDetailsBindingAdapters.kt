@@ -59,20 +59,3 @@ fun bindRecipeDetailsVideo(videoView: VideoView, url: String?) {
     }
 }
 
-@BindingAdapter("recipeDetailsYoutube")
-fun bindRecipeDetailsYoutube(youtubePlayer: YouTubePlayerView, url: String?) {
-    url?.let {
-        if(it.contains("youtube")) {
-            youtubePlayer.visibility = View.VISIBLE
-            youtubePlayer.getPlayerUiController().showFullscreenButton(true)
-            youtubePlayer.getPlayerUiController().showYouTubeButton(false)
-            youtubePlayer.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    super.onReady(youTubePlayer)
-                    val videoId = it.split("v=")[1]
-                    youTubePlayer.cueVideo(videoId, 0f)
-                }
-            })
-        }
-    }
-}

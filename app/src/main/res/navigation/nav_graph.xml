@@ -34,9 +34,25 @@
     <fragment
         android:id="@+id/recipeDetailsFragment"
         android:name="com.example.recipeapp.recipeDetails.RecipeDetailsFragment"
-        android:label="RecipeDetailsFragment" >
+        tools:layout="@layout/fragment_recipe_details">
         <argument
             android:name="recipeId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_recipeDetailsFragment_to_youtubeFragment"
+            app:destination="@id/youtubeFragment"
+            app:popUpTo="@id/recipeDetailsFragment"
+            app:popUpToInclusive="false" />
+        <argument
+            android:name="recipeName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/youtubeFragment"
+        android:name="com.example.recipeapp.youtube.YoutubeFragment"
+        tools:layout="@layout/fragment_youtube">
+        <argument
+            android:name="videoId"
+            app:argType="string" />
     </fragment>
 </navigation>
