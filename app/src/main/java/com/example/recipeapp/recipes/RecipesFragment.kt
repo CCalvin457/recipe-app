@@ -23,7 +23,7 @@ class RecipesFragment : Fragment() {
 //    val viewModel: RecipesViewModel by lazy {
 //        ViewModelProvider(this, ).get(RecipesViewModel::class.java)
 //    }
-    val scope = CoroutineScope(Job() + Dispatchers.IO)
+private val scope = CoroutineScope(Job() + Dispatchers.IO)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

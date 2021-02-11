@@ -1,17 +1,31 @@
 package com.example.recipeapp.recipeDetails
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.recipeapp.databinding.FragmentRecipeDetailsBinding
+import com.example.recipeapp.utils.FullScreenHelper
+import com.example.recipeapp.utils.YouTubeHelper
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.YouTubePlayerFullScreenListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.utils.loadOrCueVideo
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @Suppress("DEPRECATION")
 class RecipeDetailsFragment : Fragment() {
+    private lateinit var _appCompatActivity: AppCompatActivity
+    private lateinit var _viewModel: RecipeDetailsViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -19,32 +33,32 @@ class RecipeDetailsFragment : Fragment() {
     ): View? {
         val arguments = RecipeDetailsFragmentArgs.fromBundle(requireArguments())
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = arguments.recipeName
+        _appCompatActivity = (requireActivity() as AppCompatActivity)
+        _appCompatActivity.supportActionBar?.title = arguments.recipeName
 
         // Inflate the layout for this fragment
         val binding = FragmentRecipeDetailsBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         val viewModelFactory = RecipeDetailsViewModelFactory(arguments.recipeId)
-        val viewModel = ViewModelProvider(this, viewModelFactory)
+        _viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipeDetailsViewModel::class.java)
 
-        binding.recipeDetailsViewModel = viewModel
-
+        binding.recipeDetailsViewModel = _viewModel
 
         binding.recipeVideoLayout.setOnClickListener {
             Log.d("RecipeDetailsFragment", "click listener")
-            viewModel.videoId.value?.let {
-                viewModel.displayVideoView(it)
+            _viewModel.videoId.value?.let {
+                _viewModel.displayVideoView(it)
             }
         }
 
-        viewModel.navigateToVideoView.observe(viewLifecycleOwner, {
+        _viewModel.navigateToVideoView.observe(viewLifecycleOwner, {
             it?.let {
                 this.findNavController().navigate(RecipeDetailsFragmentDirections
                     .actionRecipeDetailsFragmentToYoutubeFragment(it))
 
-                viewModel.displayVideoViewCompleted()
+                _viewModel.displayVideoViewCompleted()
             }
         })
 
@@ -92,7 +106,7 @@ class RecipeDetailsFragment : Fragment() {
 //                }
 //            }
 //        }
-
         return binding.root
     }
+
 }

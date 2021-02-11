@@ -62,6 +62,7 @@ fun bindRecipeDetailsYoutube(youtubePlayer: YouTubePlayerView, videoId: String?)
         val playerUiController = youtubePlayer.getPlayerUiController()
         playerUiController.showFullscreenButton(true)
         playerUiController.showYouTubeButton(false)
+        playerUiController.showBufferingProgress(true)
         youtubePlayer.addYouTubePlayerListener(object: AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer: YouTubePlayer) {
                 super.onReady(youTubePlayer)

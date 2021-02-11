@@ -1,7 +1,5 @@
 package com.example.recipeapp.utils
 
-import android.util.Log
-
 class YouTubeHelper {
     companion object {
         fun getId(url: String?): String? {
